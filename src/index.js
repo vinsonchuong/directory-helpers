@@ -1,18 +1,12 @@
-function count(total) {
-  return new Promise((resolve) => {
-    function loop(current) {
-      if (current > 0) {
-        process.stdout.write(`${current}...`);
-        setTimeout(() => loop(current - 1), 1000);
-      } else {
-        resolve();
-      }
-    }
-    loop(total);
-  });
-}
+import * as path from 'path';
+import * as fse from 'fs-extra-promise-es6';
 
-export default async function() {
-  await count(3);
-  process.stdout.write('Hello World!\n');
+export default class {
+  constructor(basePath) {
+    this.basePath = path.resolve(basePath);
+  }
+
+  async create() {
+    await fse.mkdirs(this.basePath);
+  }
 }

@@ -1,18 +1,56 @@
 # directory-helpers
 [![Build Status](https://travis-ci.org/vinsonchuong/directory-helpers.svg?branch=master)](https://travis-ci.org/vinsonchuong/directory-helpers)
-[![Code Climate](https://codeclimate.com/github/vinsonchuong/directory-helpers/badges/gpa.svg)](https://codeclimate.com/github/vinsonchuong/directory-helpers)
 
-Prints Hello World!
+A collection of helper methods for working with directories
 
 ## Installing
 `directory-helpers` is available as an
 [npm package](https://www.npmjs.com/package/directory-helpers).
 
 ## Usage
-From the command line, run:
-```bash
-directory-helpers
+`directory-helpers` is best used in an ES.next environment with async/await
+enabled.
+
+```js
+import {Directory} from 'directory-helpers';
+
+async main() {
+  const directory = new Directory('./project');
+  await directory.writeFiles({
+    'package.json': {
+      name: 'project',
+      version: '0.0.1'
+    },
+    'index.js': `
+      process.stdout.write('Hello World!');
+    `
+  });
+  const output = await project.execFile('node', ['index.js'])
+}
+main();
 ```
+
+### Methods
+* [constructor](#constructor)
+* [create](#create)
+
+#### Constructor
+```js
+const directory = new Directory(basePath)
+```
+Initializes a directory adapter pointing to the given `basePath`. The given
+`basePath` will be passed through `path.resolve`. Note that the directory is
+not created by the constructor.
+
+#### Create
+```js
+async function main() {
+  const directory = new Directory(basePath);
+  await directory.create();
+}
+```
+Creates the directory at the `basePath` given to the constructor if it does not
+already exist.
 
 ## Development
 ### Getting Started
