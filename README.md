@@ -33,6 +33,8 @@ main();
 ### Methods
 * [constructor](#constructor)
 * [create](#create)
+* [path](#path)
+* [write](#write)
 
 #### Constructor
 ```js
@@ -45,12 +47,45 @@ not created by the constructor.
 #### Create
 ```js
 async function main() {
+  const basePath = './project';
   const directory = new Directory(basePath);
   await directory.create();
 }
 ```
 Creates the directory at the `basePath` given to the constructor if it does not
 already exist.
+
+#### Path
+```js
+async function main() {
+  const directory = new Directory('./project');
+  directory.path('src/lib/helpers.js');
+}
+```
+Resolves paths relative to the `basePath` of the directory.
+
+#### Write
+```js
+async function main() {
+  const directory = new Directory('./project');
+  await directory.create();
+  await directory.write({
+    'package.json': {
+      name: 'project',
+      version: '0.0.1'
+    },
+    'src/index.js': `
+      import * as path from 'path';
+      console.log(path.resolve());
+    `
+  });
+}
+```
+Creates or overwrites files at paths relative to the `basePath` of the
+directory. If the file contents are an object or array, it will be
+converted to a string using `JSON.stringify(contents, null, 2)`. If the file
+contents are a string, that string will be re-indented so that there is no
+leading space on the first line. Any missing directories will be created.
 
 ## Development
 ### Getting Started
