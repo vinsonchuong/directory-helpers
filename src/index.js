@@ -15,6 +15,10 @@ export default class {
     return path.resolve(this.basePath, ...components);
   }
 
+  async remove() {
+    await fse.remove(this.path());
+  }
+
   async write(files) {
     for (const file of Object.keys(files)) {
       const filePath = this.path(file);

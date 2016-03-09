@@ -5,14 +5,14 @@ import Directory from 'directory-helpers';
 
 describe('Directory', () => {
   afterEach(async () => {
-    await fse.remove('project');
+    await new Directory('project').remove();
   });
 
   describe('#create', () => {
     it('creates the directory', async () => {
       const directory = new Directory('project');
       await directory.create();
-      expect(await fs.readdir(path.resolve('project'))).toEqual([]);
+      expect(await fs.readdir(path.resolve())).toContain('project');
     });
   });
 
@@ -20,6 +20,15 @@ describe('Directory', () => {
     it('resolves paths relative to the basePath of the directory', () => {
       const directory = new Directory('project');
       expect(directory.path('src')).toBe(path.resolve('project', 'src'));
+    });
+  });
+
+  describe('#remove', () => {
+    it('deletes the directory', async () => {
+      const directory = new Directory('project');
+      await directory.create();
+      await directory.remove();
+      expect(await fs.readdir(path.resolve())).not.toContain('project');
     });
   });
 

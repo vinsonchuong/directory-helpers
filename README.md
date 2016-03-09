@@ -34,6 +34,7 @@ main();
 * [constructor](#constructor)
 * [create](#create)
 * [path](#path)
+* [remove](#remove)
 * [write](#write)
 
 #### Constructor
@@ -63,6 +64,16 @@ async function main() {
 }
 ```
 Resolves paths relative to the `basePath` of the directory.
+
+#### Remove
+```js
+async function main() {
+  const directory = new Directory('./project');
+  await directory.create();
+  await directory.remove();
+}
+```
+Deletes the directory at `basePath` if it exists.
 
 #### Write
 ```js
