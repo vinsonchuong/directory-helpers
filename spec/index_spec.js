@@ -45,13 +45,19 @@ describe('Directory', () => {
       await directory.write({
         'index.js': `
           import * as path from 'path';
-          console.log(path.resolve('foo'));
+          function doStuff() {
+            return 42;
+          }
+          console.log(doStuff());
         `
       });
       const file = await fs.readFile(path.resolve('project/index.js'));
       expect(file.toString().split('\n')).toEqual([
         "import * as path from 'path';",
-        "console.log(path.resolve('foo'));",
+        'function doStuff() {',
+        '  return 42;',
+        '}',
+        'console.log(doStuff());',
         ''
       ]);
     });
