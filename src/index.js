@@ -20,14 +20,13 @@ export default class {
   }
 
   async write(files) {
-    for (const file of Object.keys(files)) {
-      const filePath = this.path(file);
-      const fileContents = files[file];
+    for (const [filePath, fileContents] of Object.entries(files)) {
+      const absoluteFilePath = this.path(filePath);
 
-      await fse.ensureFile(filePath);
+      await fse.ensureFile(absoluteFilePath);
 
       if (typeof fileContents === 'object') {
-        await fse.writeJson(filePath, fileContents);
+        await fse.writeJson(absoluteFilePath, fileContents);
       } else {
         const reindentedFileContents = fileContents
           .split('\n')
@@ -42,7 +41,7 @@ export default class {
               contents: `${contents}${line.slice(whitespaceToRemove)}\n`
             };
           }, {contents: ''}).contents;
-        await fs.writeFile(filePath, reindentedFileContents);
+        await fs.writeFile(absoluteFilePath, reindentedFileContents);
       }
     }
   }
