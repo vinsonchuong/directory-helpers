@@ -35,6 +35,7 @@ main();
 * [create](#create)
 * [path](#path)
 * [remove](#remove)
+* [spawn](#spawn)
 * [write](#write)
 
 #### Constructor
@@ -74,6 +75,34 @@ async function main() {
 }
 ```
 Deletes the directory at `basePath` if it exists.
+
+#### Spawn
+```js
+async function main() {
+  const directory = new Directory('./project');
+  await directory.write({
+    'package.json': {
+      name: 'project'
+    },
+    'server.js': `
+      setTimeout(() => {
+        console.log('Loading...');
+        setTimeout(() => {
+          console.log('Ready');
+          setTimeout(() => {
+            console.log('Result');
+          }, 100);
+        }, 100);
+      }, 100);
+    `
+  });
+  const server = directory.spawn('npm', ['start']);
+  await server.filter((output) => output.match(/Ready/));
+}
+```
+Spawns a child process and returns an
+[`Observable`](https://github.com/vinsonchuong/esnext-async) of text produced
+by `stdout` and `stderr`.
 
 #### Write
 ```js

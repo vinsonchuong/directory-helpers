@@ -1,6 +1,8 @@
 import * as path from 'path';
+import * as childProcess from 'child_process';
 import {fs} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
+import {AwaitableObservable} from 'esnext-async';
 
 export default class {
   constructor(basePath) {
@@ -17,6 +19,18 @@ export default class {
 
   async remove() {
     await fse.remove(this.path());
+  }
+
+  spawn(command, params) {
+    const child = childProcess.spawn(command, params, {cwd: this.path()});
+    return new AwaitableObservable((observer) => {
+      child.stdout.on('data', (data) => {
+        observer.next(data.toString());
+      });
+      child.stderr.on('data', (data) => {
+        observer.next(data.toString());
+      });
+    });
   }
 
   async write(files) {
