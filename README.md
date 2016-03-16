@@ -57,6 +57,17 @@ async function main() {
 Creates the directory at the `basePath` given to the constructor if it does not
 already exist.
 
+#### Exec
+```js
+async function main() {
+  const directory = new Directory('./project');
+  await directory.create();
+  const output = await directory.exec('ls', ['-la']);
+}
+```
+Executes the given shell command from `basePath`, returning the contents of
+`stdout` after the process exits.
+
 #### Path
 ```js
 async function main() {
@@ -100,7 +111,7 @@ async function main() {
   await server.filter((output) => output.match(/Ready/));
 }
 ```
-Spawns a child process and returns an
+Spawns a child process from `basePath` and returns an
 [`Observable`](https://github.com/vinsonchuong/esnext-async) of text produced
 by `stdout` and `stderr`.
 

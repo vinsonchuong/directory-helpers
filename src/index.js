@@ -1,6 +1,5 @@
 import * as path from 'path';
-import * as childProcess from 'child_process';
-import {fs} from 'node-promise-es6';
+import {childProcess, fs} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
 import {AwaitableObservable} from 'esnext-async';
 
@@ -11,6 +10,13 @@ export default class {
 
   async create() {
     await fse.mkdirs(this.basePath);
+  }
+
+  async exec(command, params) {
+    const {stdout} = await childProcess.execFile(command, params, {
+      cwd: this.path()
+    });
+    return stdout.trim();
   }
 
   path(...components) {

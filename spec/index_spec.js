@@ -16,6 +16,19 @@ describe('Directory', () => {
     });
   });
 
+  describe('#exec', () => {
+    it('executes the shell command and returns the output', async () => {
+      const directory = new Directory('project');
+      await directory.write({
+        'foo': '',
+        'bar': '',
+        'baz': ''
+      });
+      expect(await directory.exec('ls', ['--reverse']))
+        .toEqual('foo\nbaz\nbar');
+    });
+  });
+
   describe('#path', () => {
     it('resolves paths relative to the basePath of the directory', () => {
       const directory = new Directory('project');
