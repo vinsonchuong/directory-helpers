@@ -20,9 +20,9 @@ describe('Directory', () => {
     it('executes the shell command and returns the output', async () => {
       const directory = new Directory('project');
       await directory.write({
-        'foo': '',
-        'bar': '',
-        'baz': ''
+        foo: '',
+        bar: '',
+        baz: ''
       });
       expect(await directory.exec('ls', ['--reverse']))
         .toEqual('foo\nbaz\nbar');
