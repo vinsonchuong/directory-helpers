@@ -12,7 +12,7 @@ A collection of helper methods for working with directories
 enabled.
 
 ```js
-import {Directory} from 'directory-helpers';
+import Directory from 'directory-helpers';
 
 async main() {
   const directory = new Directory('./project');
@@ -40,6 +40,8 @@ main();
 
 #### Constructor
 ```js
+import Directory from 'directory-helpers';
+
 const directory = new Directory(basePath)
 ```
 Initializes a directory adapter pointing to the given `basePath`. The given
@@ -48,6 +50,8 @@ not created by the constructor.
 
 #### Create
 ```js
+import Directory from 'directory-helpers';
+
 async function main() {
   const basePath = './project';
   const directory = new Directory(basePath);
@@ -59,6 +63,8 @@ already exist.
 
 #### Exec
 ```js
+import Directory from 'directory-helpers';
+
 async function main() {
   const directory = new Directory('./project');
   await directory.create();
@@ -70,6 +76,8 @@ Executes the given shell command from `basePath`, returning the contents of
 
 #### Path
 ```js
+import Directory from 'directory-helpers';
+
 async function main() {
   const directory = new Directory('./project');
   directory.path('src/lib/helpers.js');
@@ -79,6 +87,8 @@ Resolves paths relative to the `basePath` of the directory.
 
 #### Remove
 ```js
+import Directory from 'directory-helpers';
+
 async function main() {
   const directory = new Directory('./project');
   await directory.create();
@@ -89,6 +99,8 @@ Deletes the directory at `basePath` if it exists.
 
 #### Spawn
 ```js
+import Directory from 'directory-helpers';
+
 async function main() {
   const directory = new Directory('./project');
   await directory.write({
@@ -117,6 +129,8 @@ by `stdout` and `stderr`.
 
 #### Write
 ```js
+import Directory from 'directory-helpers';
+
 async function main() {
   const directory = new Directory('./project');
   await directory.create();
