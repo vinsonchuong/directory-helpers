@@ -72,7 +72,8 @@ async function main() {
 }
 ```
 Executes the given shell command from `basePath`, returning the contents of
-`stdout` after the process exits.
+`stdout` after the process exits. If the process exits unsuccessfully, the
+contents of `stderr` are thrown as an `Error`.
 
 #### Path
 ```js
