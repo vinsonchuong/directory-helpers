@@ -2,6 +2,7 @@ import * as path from 'path';
 import {fs} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
 import Directory from 'directory-helpers';
+import {catchError} from 'jasmine-es6';
 
 describe('Directory', () => {
   afterEach(async () => {
@@ -26,6 +27,13 @@ describe('Directory', () => {
       });
       expect(await directory.exec('ls', ['--reverse']))
         .toEqual('foo\nbaz\nbar');
+    });
+
+    it('throws output from stderr if there is no stdout output', async () => {
+      const directory = new Directory('project');
+      await directory.create();
+      expect(await catchError(directory.exec('ls', ['foo'])))
+        .toMatch('No such file');
     });
   });
 

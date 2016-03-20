@@ -13,10 +13,14 @@ export default class {
   }
 
   async exec(command, params) {
-    const {stdout} = await childProcess.execFile(command, params, {
-      cwd: this.path()
-    });
-    return stdout.trim();
+    try {
+      const {stdout} = await childProcess.execFile(command, params, {
+        cwd: this.path()
+      });
+      return stdout.trim();
+    } catch (error) {
+      throw new Error(error.message.trim());
+    }
   }
 
   path(...components) {
