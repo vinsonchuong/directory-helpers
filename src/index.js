@@ -18,8 +18,8 @@ export default class {
         cwd: this.path()
       });
       return stdout.trim();
-    } catch (error) {
-      throw new Error(error.message.trim());
+    } catch ({stderr}) {
+      throw new Error(stderr.trim());
     }
   }
 
