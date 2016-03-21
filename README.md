@@ -33,6 +33,8 @@ main();
 ### Methods
 * [constructor](#constructor)
 * [create](#create)
+* [exec](#exec)
+* [execJs](#execJs)
 * [path](#path)
 * [remove](#remove)
 * [spawn](#spawn)
