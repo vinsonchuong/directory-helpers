@@ -39,8 +39,8 @@ export default class {
         stderrOutput += output;
       });
 
-      child.on('close', (code) => {
-        if (code === 0) {
+      child.on('close', (exitCode) => {
+        if (exitCode === 0) {
           resolve(stdoutOutput.trim());
         } else {
           reject(stderrOutput.trim());
