@@ -37,6 +37,31 @@ describe('Directory', () => {
     });
   });
 
+  describe('#execJs', () => {
+    it('executes the given ES.next code, returning the output', async () => {
+      const directory = new Directory('project');
+      await directory.create();
+
+      const output = await directory.execJs(`
+        import * as path from 'path';
+        console.log(path.resolve());
+      `);
+
+      expect(output).toBe(path.resolve());
+    });
+
+    it('throws an error when execution is unsuccessful', async () => {
+      const directory = new Directory('project');
+      await directory.create();
+
+      const output = await catchError(directory.execJs(`
+        throw new Error('There was an error here');
+      `));
+
+      expect(output).toContain('There was an error here');
+    });
+  });
+
   describe('#path', () => {
     it('resolves paths relative to the basePath of the directory', () => {
       const directory = new Directory('project');

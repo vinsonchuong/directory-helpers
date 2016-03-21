@@ -75,6 +75,23 @@ Executes the given shell command from `basePath`, returning the contents of
 `stdout` after the process exits. If the process exits unsuccessfully, the
 contents of `stderr` are thrown as an `Error`.
 
+#### ExecJs
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  await directory.create();
+  const output = await directory.execJs(`
+    import * as path from path;
+    console.log(path.resolve());
+  `);
+}
+```
+Executes the given JavaScript (ES.next supported) code from `basePath`,
+returning the output of `stdout`. If execution fails, an error is thrown with
+the contents of `stderr`.
+
 #### Path
 ```js
 import Directory from 'directory-helpers';

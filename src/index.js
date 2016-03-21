@@ -23,6 +23,32 @@ export default class {
     }
   }
 
+  execJs(code) {
+    return new Promise((resolve, reject) => {
+      const child = childProcess.spawn('dist-es6-run');
+      child.stdin.write(code);
+      child.stdin.end();
+
+      let stdoutOutput = '';
+      child.stdout.on('data', (output) => {
+        stdoutOutput += output;
+      });
+
+      let stderrOutput = '';
+      child.stderr.on('data', (output) => {
+        stderrOutput += output;
+      });
+
+      child.on('close', (code) => {
+        if (code === 0) {
+          resolve(stdoutOutput.trim());
+        } else {
+          reject(stderrOutput.trim());
+        }
+      });
+    });
+  }
+
   path(...components) {
     return path.resolve(this.basePath, ...components);
   }
