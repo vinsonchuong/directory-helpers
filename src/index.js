@@ -25,7 +25,7 @@ export default class {
 
   execJs(code) {
     return new Promise((resolve, reject) => {
-      const child = childProcess.spawn('dist-es6-run');
+      const child = childProcess.spawn('dist-es6-run', {cwd: this.path()});
       child.stdin.write(code);
       child.stdin.end();
 

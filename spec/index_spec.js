@@ -47,7 +47,7 @@ describe('Directory', () => {
         console.log(path.resolve());
       `);
 
-      expect(output).toBe(path.resolve());
+      expect(output).toBe(path.resolve('project'));
     });
 
     it('throws an error when execution is unsuccessful', async () => {
