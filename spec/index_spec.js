@@ -69,6 +69,32 @@ describe('Directory', () => {
     });
   });
 
+  describe('#read', () => {
+    it('reads text files', async () => {
+      const directory = new Directory('project');
+      await directory.write({
+        'code.js': `
+          console.log("Hello")
+        `
+      });
+      expect(await directory.read('code.js')).toBe('console.log("Hello")\n');
+    });
+
+    it('reads JSON files', async () => {
+      const directory = new Directory('project');
+      await directory.write({
+        'package.json': {
+          name: 'project',
+          version: '0.0.1'
+        }
+      });
+      expect(await directory.read('package.json')).toEqual({
+        name: 'project',
+        version: '0.0.1'
+      });
+    });
+  });
+
   describe('#remove', () => {
     it('deletes the directory', async () => {
       const directory = new Directory('project');

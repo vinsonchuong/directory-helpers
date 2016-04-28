@@ -36,6 +36,7 @@ main();
 * [exec](#exec)
 * [execJs](#execJs)
 * [path](#path)
+* [read](#read)
 * [remove](#remove)
 * [spawn](#spawn)
 * [write](#write)
@@ -105,6 +106,27 @@ async function main() {
 ```
 Resolves paths relative to the `basePath` of the directory.
 
+#### Read
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  await directory.write({
+    'code.js': `
+      console.log('Hello World!')
+    `,
+    'data.json': {
+      hello: 'world'
+    }
+  });
+  const code = await directory.read('file.js');
+  const data = await directory.read('data.json');
+}
+```
+Reads the contents of a file at the path relative to the `basePath` of the
+directory. The file contents are parsed using `JSON.parse()` when possible.
+
 #### Remove
 ```js
 import Directory from 'directory-helpers';
@@ -140,7 +162,7 @@ async function main() {
     `
   });
   const server = directory.spawn('npm', ['start']);
-  await server.filter((output) => output.match(/Ready/));
+  await server.filter((output) => output.match(/Listening/));
 }
 ```
 Spawns a child process from `basePath` and returns an

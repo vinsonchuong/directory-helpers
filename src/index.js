@@ -53,6 +53,15 @@ export default class {
     return path.resolve(this.basePath, ...components);
   }
 
+  async read(filePath) {
+    const contents = await fs.readFile(this.path(filePath), 'utf8');
+    try {
+      return JSON.parse(contents);
+    } catch (error) {
+      return contents;
+    }
+  }
+
   async remove() {
     await fse.remove(this.path());
   }
