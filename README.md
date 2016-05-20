@@ -25,7 +25,7 @@ async main() {
       process.stdout.write('Hello World!');
     `
   });
-  const output = await project.execFile('node', ['index.js'])
+  const output = await project.exec('node', ['index.js'])
 }
 main();
 ```
