@@ -34,7 +34,7 @@
     "esnext-async": "^0.0.1"
   },
   "devDependencies": {
-    "jasmine-es6": "^0.1.9",
+    "jasmine-es6": "^0.1.10",
     "eslint-defaults": "^0.2.5"
   }
 }
