@@ -107,7 +107,6 @@ describe('Directory', () => {
   describe('#spawn', () => {
     it('returns an Observable of output', async () => {
       const directory = new Directory('project');
-      await directory.create();
       await directory.write({
         'package.json': {
           name: 'project'
@@ -127,6 +126,14 @@ describe('Directory', () => {
       const observable = directory.spawn('npm', ['start']);
       await observable.filter((line) => line.match(/Ready/));
       expect(await observable).toMatch(/Data/);
+    });
+
+    it('exposes the ChildProcess instance', async () => {
+      const directory = new Directory('project');
+      await directory.create();
+      const server = directory.spawn('ls');
+      expect(server.process).toBeDefined();
+      expect(server.process.pid).toEqual(jasmine.any(Number));
     });
   });
 

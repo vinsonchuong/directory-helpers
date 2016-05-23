@@ -163,11 +163,13 @@ async function main() {
   });
   const server = directory.spawn('npm', ['start']);
   await server.filter((output) => output.match(/Listening/));
+  server.process.kill();
 }
 ```
 Spawns a child process from `basePath` and returns an
 [`Observable`](https://github.com/vinsonchuong/esnext-async) of text produced
-by `stdout` and `stderr`.
+by `stdout` and `stderr`. The `ChildProcess` instance can be accessed from the
+`process` attribute.
 
 #### Write
 ```js

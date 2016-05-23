@@ -68,7 +68,7 @@ export default class {
 
   spawn(command, params) {
     const child = childProcess.spawn(command, params, {cwd: this.path()});
-    return new AwaitableObservable((observer) => {
+    const observable = new AwaitableObservable((observer) => {
       child.stdout.on('data', (data) => {
         observer.next(data.toString());
       });
@@ -76,6 +76,8 @@ export default class {
         observer.next(data.toString());
       });
     });
+    observable.process = child;
+    return observable;
   }
 
   async write(files) {
