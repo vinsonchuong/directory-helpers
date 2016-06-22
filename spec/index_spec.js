@@ -137,6 +137,15 @@ describe('Directory', () => {
     });
   });
 
+  describe('#symlink', () => {
+    it('creates a symbolic link', async () => {
+      const directory = new Directory('project');
+      await directory.symlink('../package.json', 'package.json');
+      expect(await directory.read('package.json'))
+        .toEqual(jasmine.objectContaining({name: 'directory-helpers'}));
+    });
+  });
+
   describe('#write', () => {
     it('writes JSON files', async () => {
       const directory = new Directory('project');

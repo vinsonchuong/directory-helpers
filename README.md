@@ -39,6 +39,7 @@ main();
 * [read](#read)
 * [remove](#remove)
 * [spawn](#spawn)
+* [symlink](#symlink)
 * [write](#write)
 
 #### Constructor
@@ -170,6 +171,19 @@ Spawns a child process from `basePath` and returns an
 [`Observable`](https://github.com/vinsonchuong/esnext-async) of text produced
 by `stdout` and `stderr`. The `ChildProcess` instance can be accessed from the
 `process` attribute.
+
+#### Symlink
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  await directory.symlink('../sourcePath', 'destinationPath');
+}
+```
+Creates a symbolic link at `destinationPath` pointing to the `sourcePath`. Both
+paths are relative to the `basePath`. If any of the directories in the
+`destinationPath` do not exist, they are created.
 
 #### Write
 ```js

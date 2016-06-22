@@ -80,6 +80,10 @@ export default class {
     return observable;
   }
 
+  async symlink(source, destination) {
+    await fse.ensureSymlink(this.path(source), this.path(destination));
+  }
+
   async write(files) {
     for (const [filePath, fileContents] of Object.entries(files)) {
       const absoluteFilePath = this.path(filePath);
