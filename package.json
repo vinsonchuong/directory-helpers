@@ -1,6 +1,6 @@
 {
   "name": "directory-helpers",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A collection of helper methods for working with directories",
   "keywords": [
     "es6",
