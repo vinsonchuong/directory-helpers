@@ -2,6 +2,7 @@ import * as path from 'path';
 import {childProcess, fs} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
 import {AwaitableObservable} from 'esnext-async';
+import dedent from 'dedent';
 
 export default class {
   constructor(basePath) {
@@ -93,20 +94,7 @@ export default class {
       if (typeof fileContents === 'object') {
         await fse.writeJson(absoluteFilePath, fileContents);
       } else {
-        const reindentedFileContents = fileContents
-          .split('\n')
-          .filter((line, index, array) =>
-            index !== 0 && index !== array.length - 1 || line.trim() !== '')
-          .reduce(({indentation, contents}, line) => {
-            const whitespaceToRemove = Number.isInteger(indentation) ?
-              indentation :
-              line.match(/^\s*/)[0].length;
-            return {
-              indentation: whitespaceToRemove,
-              contents: `${contents}${line.slice(whitespaceToRemove)}\n`
-            };
-          }, {contents: ''}).contents;
-        await fs.writeFile(absoluteFilePath, reindentedFileContents);
+        await fs.writeFile(absoluteFilePath, `${dedent(fileContents)}\n`);
       }
     }
   }
