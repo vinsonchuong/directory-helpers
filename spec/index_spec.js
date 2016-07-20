@@ -96,6 +96,16 @@ describe('Directory', () => {
   });
 
   describe('#remove', () => {
+    it('deletes the given file', async () => {
+      const directory = new Directory('project');
+      await directory.write({
+        foo: '',
+        bar: ''
+      });
+      await directory.remove('foo');
+      expect(await fs.readdir(directory.path())).not.toContain('foo');
+    });
+
     it('deletes the directory', async () => {
       const directory = new Directory('project');
       await directory.create();

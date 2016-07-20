@@ -134,11 +134,17 @@ import Directory from 'directory-helpers';
 
 async function main() {
   const directory = new Directory('./project');
-  await directory.create();
+  await directory.write({
+    foo: '',
+    bar: '',
+    baz: ''
+  });
+  await directory.remove('foo');
   await directory.remove();
 }
 ```
-Deletes the directory at `basePath` if it exists.
+Deletes a file at path relative to the `basePath` of the directory. If no file
+is given, deletes the directory at `basePath` if it exists.
 
 #### Spawn
 ```js

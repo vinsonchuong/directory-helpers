@@ -63,8 +63,8 @@ export default class {
     }
   }
 
-  async remove() {
-    await fse.remove(this.path());
+  async remove(...pathComponents) {
+    await fse.remove(this.path(...pathComponents));
   }
 
   spawn(command, params) {
