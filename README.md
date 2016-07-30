@@ -38,6 +38,7 @@ main();
 * [path](#path)
 * [read](#read)
 * [remove](#remove)
+* [resolve](#resolve)
 * [spawn](#spawn)
 * [symlink](#symlink)
 * [write](#write)
@@ -145,6 +146,18 @@ async function main() {
 ```
 Deletes a file at path relative to the `basePath` of the directory. If no file
 is given, deletes the directory at `basePath` if it exists.
+
+#### Resolve
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  await directory.resolve('npm-package');
+}
+```
+Resolves the absolute path to a Node.js module using the `require.resolve`
+algorithm.
 
 #### Spawn
 ```js

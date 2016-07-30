@@ -32,7 +32,8 @@
     "node-promise-es6": "^0.3.2",
     "fs-extra-promise-es6": "^0.1.1",
     "esnext-async": "^0.0.6",
-    "dedent": "^0.6.0"
+    "dedent": "^0.6.0",
+    "resolve": "^1.1.7"
   },
   "devDependencies": {
     "jasmine-es6": "^0.2.1",

@@ -114,6 +114,17 @@ describe('Directory', () => {
     });
   });
 
+  describe('#resolve', () => {
+    it('resolves node modules', async () => {
+      const directory = new Directory('project');
+      await directory.write({
+        'node_modules/foo/index.js': ''
+      });
+      expect(await directory.resolve('foo'))
+        .toBe(directory.path('node_modules/foo/index.js'));
+    });
+  });
+
   describe('#spawn', () => {
     it('returns an Observable of output', async () => {
       const directory = new Directory('project');

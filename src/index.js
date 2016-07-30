@@ -3,6 +3,7 @@ import {childProcess, fs} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
 import {AwaitableObservable} from 'esnext-async';
 import dedent from 'dedent';
+import resolveModule from 'resolve';
 
 export default class {
   constructor(basePath) {
@@ -65,6 +66,18 @@ export default class {
 
   async remove(...pathComponents) {
     await fse.remove(this.path(...pathComponents));
+  }
+
+  async resolve(request) {
+    return await new Promise((resolve, reject) => {
+      resolveModule(request, {basedir: this.path()}, (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      });
+    });
   }
 
   spawn(command, params) {
