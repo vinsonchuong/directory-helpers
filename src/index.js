@@ -1,9 +1,10 @@
 import * as path from 'path';
-import {childProcess, fs} from 'node-promise-es6';
+import {childProcess, fs, promisify} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
 import {AwaitableObservable} from 'esnext-async';
 import dedent from 'dedent';
 import resolveModule from 'resolve';
+import glob from 'glob';
 
 export default class {
   constructor(basePath) {
@@ -49,6 +50,12 @@ export default class {
         }
       });
     });
+  }
+
+  async glob(pattern, options) {
+    return await promisify(glob)(pattern, Object.assign({}, options, {
+      cwd: this.path()
+    }));
   }
 
   path(...components) {

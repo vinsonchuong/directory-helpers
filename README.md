@@ -35,6 +35,7 @@ main();
 * [create](#create)
 * [exec](#exec)
 * [execJs](#execJs)
+* [glob](#glob)
 * [path](#path)
 * [read](#read)
 * [remove](#remove)
@@ -96,6 +97,20 @@ async function main() {
 Executes the given JavaScript (ES.next supported) code from `basePath`,
 returning the output of `stdout`. If execution fails, an error is thrown with
 the contents of `stderr`.
+
+#### Glob
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  await directory.create();
+  const files = await directory.glob('**/*.js');
+}
+```
+Evaluates a glob using [`glob`](https://github.com/isaacs/node-glob),
+exposing the same interface. Note that `options.cwd` is set to the `basePath`
+of the directory.
 
 #### Path
 ```js

@@ -62,6 +62,13 @@ describe('Directory', () => {
     });
   });
 
+  describe('#glob', () => {
+    it('returns a list of files matching the given pattern', async () => {
+      const directory = new Directory('.');
+      expect(await directory.glob('*.json')).toEqual(['package.json']);
+    });
+  });
+
   describe('#path', () => {
     it('resolves paths relative to the basePath of the directory', () => {
       const directory = new Directory('project');
