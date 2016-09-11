@@ -165,6 +165,14 @@ describe('Directory', () => {
     });
   });
 
+  describe('#stat', () => {
+    it('returns an fs.Stats for the given file', async () => {
+      const directory = new Directory('.');
+      const stats = await directory.stat('package.json');
+      expect(stats instanceof fs.Stats).toBe(true);
+    });
+  });
+
   describe('#symlink', () => {
     it('creates a symbolic link', async () => {
       const directory = new Directory('project');

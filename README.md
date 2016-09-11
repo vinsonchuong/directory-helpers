@@ -41,6 +41,7 @@ main();
 * [remove](#remove)
 * [resolve](#resolve)
 * [spawn](#spawn)
+* [stat](#stat)
 * [symlink](#symlink)
 * [write](#write)
 
@@ -205,6 +206,18 @@ Spawns a child process from `basePath` and returns an
 [`Observable`](https://github.com/vinsonchuong/esnext-async) of text produced
 by `stdout` and `stderr`. The `ChildProcess` instance can be accessed from the
 `process` attribute.
+
+#### Stat
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  const stats = await directory.stat('package.json');
+}
+```
+Reads the file status for the file at the given path relative to `basePath`,
+returning an instance of `fs.Stats`.
 
 #### Symlink
 ```js

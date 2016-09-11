@@ -101,6 +101,10 @@ export default class {
     return observable;
   }
 
+  async stat(filePath) {
+    return await fs.stat(this.path(filePath));
+  }
+
   async symlink(source, destination) {
     await fse.ensureSymlink(this.path(source), this.path(destination));
   }
