@@ -152,7 +152,10 @@ describe('Directory', () => {
         `
       });
       const observable = directory.spawn('npm', ['start']);
-      await observable.filter((line) => line.match(/Ready/));
+
+      await observable;
+      await observable;
+      await observable;
       expect(await observable).toMatch(/Data/);
     });
 
