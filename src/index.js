@@ -11,6 +11,10 @@ export default class {
     this.basePath = path.resolve(basePath);
   }
 
+  contains(filePath) {
+    return !path.relative(this.path(), this.path(filePath)).includes('..');
+  }
+
   async create() {
     await fse.mkdirs(this.basePath);
   }

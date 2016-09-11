@@ -17,6 +17,23 @@ describe('Directory', () => {
     });
   });
 
+  describe('#contains', () => {
+    it('returns true for file paths within the directory', () => {
+      const directory = new Directory('.');
+
+      function assertContains(filePath, contains = true) {
+        expect(directory.contains(filePath)).toBe(contains);
+      }
+
+      assertContains('package.json');
+      assertContains('src/index.js');
+      assertContains('../directory-helpers/package.json');
+
+      assertContains('..', false);
+      assertContains('/tmp', false);
+    });
+  });
+
   describe('#exec', () => {
     it('executes the shell command and returns the output', async () => {
       const directory = new Directory('project');

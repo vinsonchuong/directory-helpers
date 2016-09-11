@@ -32,6 +32,7 @@ main();
 
 ### Methods
 * [constructor](#constructor)
+* [contains](#contains)
 * [create](#create)
 * [exec](#exec)
 * [execJs](#execJs)
@@ -54,6 +55,20 @@ const directory = new Directory(basePath)
 Initializes a directory adapter pointing to the given `basePath`. The given
 `basePath` will be passed through `path.resolve`. Note that the directory is
 not created by the constructor.
+
+#### Contains
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('/tmp/project');
+  const fileInDirectory = await directory.contains('/tmp/project/package.json');
+}
+```
+
+Determines whether the given path is contained within the `basePath` of the
+directory. Note that `#contains` does not determine whether a file actually
+exists at the given path.
 
 #### Create
 ```js
