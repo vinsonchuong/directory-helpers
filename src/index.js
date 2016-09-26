@@ -1,7 +1,7 @@
 import * as path from 'path';
 import {childProcess, fs, promisify} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
-import {AwaitableObservable} from 'esnext-async';
+import {AwaitableObservable, sleep} from 'esnext-async';
 import dedent from 'dedent';
 import resolveModule from 'resolve';
 import glob from 'glob';
@@ -105,8 +105,30 @@ export default class {
     return observable;
   }
 
+  async start(waitPattern = /^/) {
+    this.server = this.spawn('npm', ['start']);
+    this.server.forEach((output) => {
+      process.stderr.write(output);
+    });
+    await this.server.filter((output) => output.match(waitPattern));
+  }
+
   async stat(filePath) {
     return await fs.stat(this.path(filePath));
+  }
+
+  async stop() {
+    this.server.process.kill();
+
+    try {
+      const packageJson = await this.read('package.json');
+      const serverPid = await this.exec('pgrep', [
+        '-f', `node.*${packageJson.scripts.start}$`]);
+      await this.exec('kill', [serverPid]);
+      await sleep(1000);
+    } catch (error) {
+      process.stderr.write(error.message);
+    }
   }
 
   async symlink(source, destination) {

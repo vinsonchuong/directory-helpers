@@ -42,7 +42,9 @@ main();
 * [remove](#remove)
 * [resolve](#resolve)
 * [spawn](#spawn)
+* [start](#start)
 * [stat](#stat)
+* [stop](#stop)
 * [symlink](#symlink)
 * [write](#write)
 
@@ -222,6 +224,29 @@ Spawns a child process from `basePath` and returns an
 by `stdout` and `stderr`. The `ChildProcess` instance can be accessed from the
 `process` attribute.
 
+#### Start
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  await directory.write({
+    'package.json': {
+      name: 'project',
+      scripts: {
+        start: 'serve'
+      }
+    }
+  });
+  await directory.start(/Listening/);
+  // ...
+  await directory.stop();
+}
+```
+Spawns `npm start` with `basePath` as the working directory. If a regular
+expression is given, `#start` waits and resolves after reading a matching line
+from STDOUT.
+
 #### Stat
 ```js
 import Directory from 'directory-helpers';
@@ -233,6 +258,28 @@ async function main() {
 ```
 Reads the file status for the file at the given path relative to `basePath`,
 returning an instance of `fs.Stats`.
+
+#### Stop
+```js
+import Directory from 'directory-helpers';
+
+async function main() {
+  const directory = new Directory('./project');
+  await directory.write({
+    'package.json': {
+      name: 'project',
+      scripts: {
+        start: 'serve'
+      }
+    }
+  });
+  await directory.start(/Listening/);
+  // ...
+  await directory.stop();
+}
+```
+Stops the process spawned by `#start` by searching for a process that matches
+the `start` script.
 
 #### Symlink
 ```js
