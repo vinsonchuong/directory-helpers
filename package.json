@@ -38,6 +38,8 @@
   },
   "devDependencies": {
     "jasmine-es6": "^0.3.1",
-    "eslint-defaults": "^0.3.1"
+    "eslint-defaults": "^0.3.1",
+    "node-static": "^0.7.9",
+    "node-fetch": "^1.6.3"
   }
 }

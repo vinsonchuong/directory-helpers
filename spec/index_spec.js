@@ -1,6 +1,7 @@
 import * as path from 'path';
 import {fs} from 'node-promise-es6';
 import * as fse from 'fs-extra-promise-es6';
+import fetch from 'node-fetch';
 import Directory from 'directory-helpers';
 import {catchError} from 'jasmine-es6';
 
@@ -182,6 +183,35 @@ describe('Directory', () => {
       const server = directory.spawn('ls');
       expect(server.process).toBeDefined();
       expect(server.process.pid).toEqual(jasmine.any(Number));
+    });
+  });
+
+  describe('#start', () => {
+    fit('spawns npm start', async () => {
+      const directory = new Directory('project');
+      await directory.symlink('../node_modules', 'node_modules');
+      await directory.write({
+        'package.json': {
+          name: 'project',
+          private: true,
+          scripts: {
+            start: 'static'
+          }
+        }
+      });
+
+      await directory.start(/:8080/);
+
+      const response = await fetch('http://127.0.0.1:8080/package.json');
+      expect(await response.json()).toEqual({
+        name: 'project',
+        private: true,
+        scripts: {
+          start: 'static'
+        }
+      });
+
+      await directory.stop();
     });
   });
 
