@@ -245,7 +245,8 @@ async function main() {
 ```
 Spawns `npm start` with `basePath` as the working directory. If a regular
 expression is given, `#start` waits and resolves after reading a matching line
-from STDOUT.
+from STDOUT. The process is spawned in its own process group, making it easier
+to kill the process and all of its descendent processes.
 
 #### Stat
 ```js
@@ -278,8 +279,7 @@ async function main() {
   await directory.stop();
 }
 ```
-Stops the process spawned by `#start` by searching for a process that matches
-the `start` script.
+Stops the process group spawned by `#start`.
 
 #### Symlink
 ```js
