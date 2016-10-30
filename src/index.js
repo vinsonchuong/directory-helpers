@@ -106,7 +106,7 @@ export default class {
   }
 
   async start(waitPattern = /^/) {
-    this.server = this.spawn('sh', ['-c', 'npm start'], {detached: true});
+    this.server = this.spawn('npm', ['start']);
     this.server.forEach((output) => {
       process.stderr.write(output);
     });
