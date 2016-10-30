@@ -212,7 +212,7 @@ describe('Directory', () => {
       });
 
       await directory.stop();
-      expect(await catchError(directory.exec('pgrep', ['-f', `node.*static$`])))
+      expect(await catchError(directory.exec('pgrep', ['-f', 'node.*static$'])))
         .not.toBe(null);
     });
   });
