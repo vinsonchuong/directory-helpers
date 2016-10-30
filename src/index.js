@@ -118,7 +118,10 @@ export default class {
   }
 
   async stop() {
-    this.server.process.kill();
+    await new Promise((resolve) => {
+      this.server.process.on('close', resolve);
+      this.server.process.kill();
+    });
   }
 
   async symlink(source, destination) {
