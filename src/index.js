@@ -106,7 +106,7 @@ export default class {
   }
 
   async start(waitPattern = /^/) {
-    this.server = this.spawn('sh', ['-c', 'npm start']);
+    this.server = this.spawn('sh', ['-c', 'npm start'], {detached: true});
     this.server.forEach((output) => {
       process.stderr.write(output);
     });
@@ -120,7 +120,7 @@ export default class {
   async stop() {
     await new Promise((resolve) => {
       this.server.process.on('close', resolve);
-      this.server.process.kill();
+      process.kill(-this.server.process.pid);
     });
   }
 
