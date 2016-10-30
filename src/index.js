@@ -119,16 +119,6 @@ export default class {
 
   async stop() {
     this.server.process.kill();
-
-//     try {
-//       const packageJson = await this.read('package.json');
-//       const serverPid = await this.exec('pgrep', [
-//         '-f', `node.*${packageJson.scripts.start}$`]);
-//       await this.exec('kill', [serverPid]);
-//       await sleep(1000);
-//     } catch (error) {
-//       process.stderr.write(error.message);
-//     }
   }
 
   async symlink(source, destination) {

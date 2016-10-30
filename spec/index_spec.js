@@ -186,8 +186,8 @@ describe('Directory', () => {
     });
   });
 
-  describe('#start', () => {
-    fit('spawns npm start', async () => {
+  describe('#start and #stop', () => {
+    it('spawns npm start', async () => {
       const directory = new Directory('project');
       await directory.symlink('../node_modules', 'node_modules');
       await directory.write({
@@ -200,7 +200,7 @@ describe('Directory', () => {
         }
       });
 
-      await directory.start(/:8080/);
+      await directory.start(/serving.*:8080/);
 
       const response = await fetch('http://127.0.0.1:8080/package.json');
       expect(await response.json()).toEqual({
@@ -212,9 +212,8 @@ describe('Directory', () => {
       });
 
       await directory.stop();
-
-      await directory.start(/:8080/);
-      await directory.stop();
+      expect(await catchError(directory.exec('pgrep', ['-f', `node.*static$`])))
+        .not.toBe(null);
     });
   });
 
