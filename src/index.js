@@ -120,7 +120,7 @@ export default class {
   async stop() {
     await new Promise((resolve) => {
       this.server.process.on('close', resolve);
-      this.server.process.kill();
+      process.kill(-this.server.process.pid);
     });
   }
 
