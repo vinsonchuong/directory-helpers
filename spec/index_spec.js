@@ -212,6 +212,9 @@ describe('Directory', () => {
       });
 
       await directory.stop();
+
+      await directory.start(/:8080/);
+      await directory.stop();
     });
   });
 
