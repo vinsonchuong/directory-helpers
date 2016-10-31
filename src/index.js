@@ -91,8 +91,12 @@ export default class {
     });
   }
 
-  spawn(command, params) {
-    const child = childProcess.spawn(command, params, {cwd: this.path()});
+  spawn(command, params = []) {
+    const child = childProcess.spawn(
+      'setsid',
+      [command, ...params],
+      {cwd: this.path()}
+    );
     const observable = new AwaitableObservable((observer) => {
       child.stdout.on('data', (data) => {
         observer.next(data.toString());
@@ -106,7 +110,7 @@ export default class {
   }
 
   async start(waitPattern = /^/) {
-    this.server = this.spawn('setsid', ['npm', 'start']);
+    this.server = this.spawn('npm', ['start']);
     this.server.forEach((output) => {
       process.stderr.write(output);
     });

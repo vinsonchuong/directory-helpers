@@ -222,7 +222,9 @@ async function main() {
 Spawns a child process from `basePath` and returns an
 [`Observable`](https://github.com/vinsonchuong/esnext-async) of text produced
 by `stdout` and `stderr`. The `ChildProcess` instance can be accessed from the
-`process` attribute.
+`process` attribute. The command is spawned in its own process group using
+`setsid` so that when `ChildProcess#kill` is called, it kills the spawned
+process and all of its subprocesses.
 
 #### Start
 ```js
