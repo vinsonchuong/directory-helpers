@@ -3,7 +3,7 @@ import test from 'ava'
 import {File} from 'directory-helpers'
 import generateUniqueName from 'directory-helpers/test/helpers/generateUniqueName'
 
-test('reading files in the current directory', async (t) => {
+test('reading a file in the current directory', async (t) => {
   const readmeFile = new File('README.md')
   const readmeContents = await readmeFile.read()
   t.true(readmeContents.includes('# directory-helpers'))
@@ -13,7 +13,7 @@ test('reading files in the current directory', async (t) => {
   t.true(licenseContents.includes('The MIT License'))
 })
 
-test('reading files that do not exist', async (t) => {
+test('reading a file that does not exist', async (t) => {
   const missingFile = new File('does not exist')
   try {
     await missingFile.read()
@@ -24,7 +24,7 @@ test('reading files that do not exist', async (t) => {
   }
 })
 
-test('creating and modifying files in the current directory', async (t) => {
+test('creating and modifying a file', async (t) => {
   const fileName = generateUniqueName()
   const fileContents = 'contents'
 
