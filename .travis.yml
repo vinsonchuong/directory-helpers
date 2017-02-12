@@ -1,10 +1,13 @@
----
-sudo: required
 dist: trusty
+sudo: false
 language: node_js
-node_js:
-- node
-before_install:
-- export DISPLAY=:99.0
-- Xvfb :99 -ac -screen 0 1024x768x8 &>/dev/null &
-- npm install -g npm
+node_js: node
+cache: yarn
+deploy:
+  provider: npm
+  email:
+    secure: clcMhwQxqiztxyPqb32UnGSICUbCxEyGAkmJDLe2wIcaXZsCsx1D7UwtLPwSSukHly1/7Uj7Nz4RWZXOqa3ZUZ5HwVcmzT+ysgrfP5yxjSvpAgnOV8LQguMhq3wG4nXrGgO8T4herVL8SGVbhuJMNdu4HZaRGjhyI9iLaKGcdOWTs6MnbubaYHb/+oLHufgqb9kE5ixsuzTsBVxVQ9MNkek7fc6LZ/ChsCoQIDMH2bvwgESusIhf8qhAjrvXfDYFqjPV82fox9Fp/WtSsAarZj0ZUAnD2nNRINbdxD/aeImxo2486sLX8fkW30xhGwS4JL/RKQmtgSLf6z5QkqcBz3/N55tqKG92saroXUDdEiJQZK75UsRG+lJjhw9u2gM4AmGCiyDqi0qbZSJaqXBd5/zZU79lRXhETGHIzcYGPw0PGVEhZr0MiR9UpvnHNWtvBCH3jpIf5zD1tDXLfwDfK331kLWoVf46GSYOzIHafjR8j1P6N+1TaIeZK90EKrv09fosaP1UD5beSHqZj5Vt8QQu+p+i5A+sNjTq2ANZdDtnPQziohzF5xQGwqEZ2n1k7Qwjl1l1UpKnxPXsLxpwkz/Kffoxes8fjhNlP0lexrlF1scrp1REnWFrUteYjfS/K5XgprSJ4pWPDePwr2aHE8ztA3yHHvc83fUx3C9k2uo=
+  api_key:
+    secure: J5IFAKnCy0hCxPOFjgkLFcvakChi16fYn1Y8FpjFK+B0J8uWTlP5YJhOmpwm4IPNr2piIGAzX/OTrVOOLSNNsBjG6n9jDoglF3qIPbtdCA7wbcvDXJyw5Jpv9gHOh5DH7k0+M4YeNSPoi/U7nZhUGkKZGJN1j0EuNUwth04VoTeuRiH394/PhU3C5PNx/LKIgrSPNPbooAYy5tYHd6D/mZk0OaD9W7s7CAMZaKqSxiLbzTScB/9AExiOnP+3/POBmBwDIW1vlzCJq4aX12IVyzW2mhZhC9ArF85PGBSPW80UG7kH0O0t58jy+eX58Wz8W9kriUB5pU0xL38pCP3on/OJmZIcYojVNJ883ssnFO6QYI02Pfjgti35aHDV0O0GNN1HsyNHArmBN16B0+hyxMEb+bAVStRQy8RITNpkPm6sJ7SFglFZeU2oqUxA+/88+NKYXHrHa4n2kmcPnJI5/a7GQf7MNHgdKdo1x51FUoxU4NxNFLMJUWKwx4WO0V2aFh8tf7pBm86rMZlOrMd+Hu7fy4gkT9ja8o1QgAOkQLIB4GFF4q/8tQEimZt3GC8KHYYN9qo5xKe1kXdVl49HbrX+04kVhfR/ojT2HgG7zVsrRb9KHk7tRsgpAUIOG3WnEfjMYwLx9RdbLV+MOUXIrmt/pYqt6xjYzR76F8S1miU=
+  on:
+    tags: true
