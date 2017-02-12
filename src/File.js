@@ -1,14 +1,8 @@
 /* @flow */
-import * as path from 'path'
 import {fs} from 'node-promise-es6'
+import Node from 'directory-helpers/src/Node.js'
 
-export default class {
-  path: string
-
-  constructor (name: string) {
-    this.path = path.resolve(name)
-  }
-
+export default class extends Node {
   async read (): Promise<string> {
     return await fs.readFile(this.path, 'utf8')
   }
