@@ -1,6 +1,6 @@
 /* @flow */
 import {fs} from 'node-promise-es6'
-import Node from 'directory-helpers/src/Node.js'
+import Node from 'directory-helpers/src/Node'
 
 export default class extends Node {
   async read (): Promise<string> {
@@ -9,9 +9,5 @@ export default class extends Node {
 
   async write (contents: string): Promise<void> {
     await fs.writeFile(this.path, contents)
-  }
-
-  async remove (): Promise<void> {
-    await fs.unlink(this.path)
   }
 }
